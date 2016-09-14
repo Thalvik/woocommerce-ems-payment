@@ -207,6 +207,19 @@ if ( class_exists( 'WC_Payment_Gateway' ) ) {
 	        //Set cart merchant info
 	        $ems_cart->SetMerchantInfo($ems_shop);
 
+	        //Get shipping info. 
+			$name_surname = $customer_order->shipping_first_name . ' '.$customer_order->shipping_last_name;
+			$street_and_number = $customer_order->shipping_address_1;
+			$city = $customer_order->shipping_city;
+			$postcode = $customer_order->shipping_postcode;
+			$country = $customer_order->shipping_country;
+			$ems_shipping_info = new eMSCartShippingInfo($name_surname,$street_and_number,$city,$postcode,$country);
+			$ems_shipping_info->SetEmailAddress($customer_order->billing_email);
+			$ems_shipping_info->SetShippingPrice($customer_order->get_total_shipping());
+
+			//Set shipping info
+			$ems_cart->SetShippingInfo($ems_shipping_info);
+
 
 	        //Set total amounts for cart
 			$ems_cart->SetShippingTotalAmount($customer_order->get_total_shipping());
