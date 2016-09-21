@@ -9,7 +9,7 @@
  * Plugin Name:       eMS payment gateway for WooCommerce
  * Plugin URI:        http://simplicity.rs/
  * Description:       eMS payment gateway for WooCommerce
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Simplicity LLC
  * Author URI:        http://simplicity.rs
  * License:           GPL-2.0+

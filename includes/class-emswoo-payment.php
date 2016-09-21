@@ -184,6 +184,7 @@ class EMS_Woo_Payment {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_filter( 'page_template', $plugin_public, 'notify_page_template' );
 		$this->loader->add_filter( 'woocommerce_available_payment_gateways', $plugin_public, 'filter_woocommerce_gateways');
+		$this->loader->add_filter( 'woocommerce_thankyou', $plugin_public, 'redirect_fail');
 
 	}
 

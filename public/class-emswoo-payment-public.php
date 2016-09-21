@@ -124,4 +124,21 @@ class EMS_Woo_Payment_Public {
 		return $args;
 	}
 
+
+	/**
+	 * Redirects user to homepage if payment is not succesfull
+	 *
+	 * @since    1.0.1
+	 */
+	public function redirect_fail($order_id) {
+
+		$order = new WC_Order( $order_id );
+
+	 	if ($order->payment_method == 'emswoo-payment' and $order->status != 'completed') {
+	 		wp_redirect(home_url());
+	 		die();
+	 	}
+	}
+
+
 }

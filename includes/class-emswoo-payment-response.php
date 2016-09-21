@@ -23,9 +23,10 @@ class EMS_Woo_Payment_Response {
 	//Process the response
 	public function process_response() {
 
+
 		//If parametars are not set
 		$store_id = isset($_POST['MerchantID']) ? $_POST['MerchantID'] : die();
-		$order_id = isset($_POST['OrderID']) ? $_POST['MerchantID'] : die();
+		$order_id = isset($_POST['OrderID']) ? $_POST['OrderID'] : die();
 		$ems_id = isset($_POST['EMSID']) ? $_POST['EMSID'] : die();
 		$status = isset($_POST['OrderStatus']) ? $_POST['OrderStatus'] : die();
 		$signature = isset($_POST['Signature']) ? $_POST['Signature'] : die();
