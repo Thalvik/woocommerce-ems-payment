@@ -385,7 +385,13 @@
       require_once('nusoap/nusoap.php');
 	  require_once('googlelog.php');
 	  require_once('ems-response.php');
-	  $client = new nusoap_client('http://91.239.151.44/PaymentGateway/Service/OrderInit.asmx?wsdl',true);
+
+	  //Produkcioni url, mada isti je
+	  //$gatewayUrl = 'http://91.239.151.44/PaymentGateway/Service/OrderInit.asmx?wsdl';
+	  $gatewayUrl = 'http://ems.e-services.rs/PaymentGateway/Service/OrderInit.asmx?wsdl';
+	  //error_log($gatewayUrl);
+
+	  $client = new nusoap_client($gatewayUrl, true);
 	  $client->soap_defencoding = 'UTF-8'; 
           $client->decode_utf8 = false;
 	  $log = new GoogleLog(

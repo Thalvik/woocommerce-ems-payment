@@ -99,29 +99,40 @@ class EMS_Woo_Payment_Public {
 	/**
 	 * Remove EMS payment gateway for users who are not on testing list
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.2
 	 */
 	public function filter_woocommerce_gateways($args) {
 
-		//Only for logged-in users, since this is better way to test it and there are no reason to not work when user is not logged in
-		if(!is_user_logged_in()) {
-			unset($args['emswoo-payment']);
+		//Get settings
+		$settings = get_option( 'woocommerce_emswoo-payment_settings', false );
+
+		if ($settings) {
+			if ($settings['store_testing_on'] == 'yes') {
+				$testing_on = true;
+			} else {
+				$testing_on = false;
+			}
 		} else {
-			//Get settings
-			$settings = get_option( 'woocommerce_emswoo-payment_settings');
-			if ($settings) {
+			$testing_on = true;
+		}
+
+		if ($testing_on == true) {
+			//If user is not logged in, and it's testing remove it auto
+			if(!is_user_logged_in()) {
+				unset($args['emswoo-payment']);
+			} else {
+				//Get current user and check it against users set for testing
 				$current_user = wp_get_current_user();
-				$testing_on = $settings['store_testing_on'];
-				if ($testing_on == 'yes') {
-					//Check if user is on list of test users
-					$testing_user_mails = explode(',',$settings['store_testing_emails']);
-					if (!in_array($current_user->data->user_email, $testing_user_mails) ) {
-						unset($args['emswoo-payment']);
-					}
+				$testing_user_mails = explode(',',$settings['store_testing_emails']);
+				if (!in_array($current_user->data->user_email, $testing_user_mails) ) {
+					unset($args['emswoo-payment']);
 				}
 			}
+			return $args;
+		} else {
+			return $args;
 		}
-		return $args;
+		
 	}
 
 
