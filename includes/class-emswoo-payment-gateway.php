@@ -221,6 +221,16 @@ if ( class_exists( 'WC_Payment_Gateway' ) ) {
 			$ems_cart->SetShippingInfo($ems_shipping_info);
 
 
+			//Get billing info
+			$name = $customer_order->billing_first_name;
+			$surname = $customer_order->billing_last_name;
+			$email = $customer_order->billing_email;
+			$ems_billing_info = new eMSCartBillingInfo($name,$surname,$email);
+
+			//Get billing info
+			$ems_cart->SetBillingInfo($ems_billing_info);
+
+
 	        //Set total amounts for cart
 			$ems_cart->SetShippingTotalAmount($customer_order->get_total_shipping());
 			$ems_cart->SetItemTotalAmount($customer_order->get_total());
